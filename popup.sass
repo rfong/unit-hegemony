@@ -1,0 +1,60 @@
+@import mixins
+
+=style
+  font-family: Helvetica, Arial, sans-serif
+  font-size: 13px
+  
+body
+  min-width: 400px
+  +style
+input, select
+  +style
+
+.nav
+  position: relative
+  text-align: center
+
+.right-container
+  position: absolute
+  top: 0
+  right: 0
+
+#clear:hover
+  color: #e32d2d
+
+.btn-group
+  font-size: 14px
+
+.button
+  font-size: 14px
+  cursor: pointer
+  +transition(color 0.1s)
+  &:hover
+    color: #e32d2d !important
+.button.delete
+  color: #666
+
+#main
+  margin-top: 0.3em
+
+  .item
+    margin-bottom: 0.5em
+    .header
+      position: relative
+      padding-right: 15px
+      .delete
+        position: absolute
+        top: 0
+        right: 0
+  .info
+    padding-left: 2em
+
+//
+
+.left
+  float: left
+.right
+  float: right
+input.default
+  color: #aaa
+

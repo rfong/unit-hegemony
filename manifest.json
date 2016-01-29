@@ -6,7 +6,7 @@
   "content_scripts": [
     {
       "js": [ "unit_replace.js" ],
-      "matches": [ "http://*/*", "https://*/*" ]
+      "matches": [ "http://*/*", "https://*/*", "file:///*" ]
     }
   ],
   "permissions": [

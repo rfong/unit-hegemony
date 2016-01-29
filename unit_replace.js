@@ -1,7 +1,3 @@
-document.addEventListener("DOMContentLoaded", function(event) { 
-  walk(document.body);
-});
-
 function walk(node) {   
   // I stole this function from here:
   // http://is.gd/mwZp7E
@@ -26,23 +22,35 @@ function walk(node) {
   }
 }
 
-var cmToIn = function(cm) { return (cm / 2.54).toFixed(2).concat(' in') };
 var units = {
-  cm: cmToIn,
+  'cmToIn': {
+    convert: function(cm) { return cm / 2.54; },
+    to: 'in',
+    pattern: /((\d\.?\d*|\.\d+)\s?(cm|CM|centimeters))($|[^a-zA-Z])/g,
+  },
 };
 
-function convertMatch(match) {
-  var number = match[1],
-      unit = match[2];
-  return number + " " + unit + " (" + units[unit](number) + ")";
+function format(f, unit) {
+  return f.toFixed(2).concat(' ' + unit);
+}
+
+function convertMatch(match, unit) {
+  var originalStr = match[1],
+      number = match[2];
+  return (originalStr + " (" +
+          format(units[unit].convert(number), units[unit].to) + ")");
 }
 
 function handleText(text) {
-  var cmPattern = /([0-9]+)[\s]*(cm)[^a-zA-Z]/g;
-  var match = cmPattern.exec(text);
-  while (match != null) {
-    text = text.replace(match[0].trim(), convertMatch(match));
-    match = cmPattern.exec(text);
+  for (var unit in units) {
+    var pattern = units[unit].pattern,
+        match = pattern.exec(text);
+    while (match != null) {
+      text = text.replace(match[1], convertMatch(match, unit));
+      match = pattern.exec(text);
+    }
   }
   return text;
 }
+
+walk(document.body);

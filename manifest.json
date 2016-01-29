@@ -1,20 +1,17 @@
 {
-  "name": "UnitHegemony",
+  "name": "Unit Translator",
   "version": "1.0",
-  "manifest_version": 1,
+  "manifest_version": 2,
   "description": "unit system translation",
-  "background": { "scripts": ["main.js"] },
-  "browser_action": {
-    "default_icon": {
-      "19": "images/package.png"
-    },
-    "default_title": "unit hegemony",
-    "default_popup": "popup.html"
-  },
+  "content_scripts": [
+    {
+      "js": [ "unit_replace.js" ],
+      "matches": [ "http://*/*", "https://*/*" ]
+    }
+  ],
   "permissions": [
     "tabs",
-    "http://*/*",
-    "https://*/*",
+    "*://*/*",
     "<all_urls>",
     "storage"
   ]
